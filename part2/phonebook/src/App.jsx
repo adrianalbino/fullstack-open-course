@@ -1,9 +1,13 @@
 import { useState } from "react"
+import Filter from './components/Filter'
+import Form from './components/Form'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "999-999-999" },
-    { name: "Adrian Joseph", number: "888-888-888" },
+    { name: 'Arto Hellas', number: '040-123456'},
+    { name: 'Ada Lovelace', number: '39-44-5323523'},
+    { name: 'Dan Abramov', number: '12-43-234345'},
+    { name: 'Mary Poppendieck', number: '39-23-6423122'}
   ])
   const [newName, setNewName] = useState("")
   const [newNumber, setNewNumber] = useState("")
@@ -49,37 +53,9 @@ const App = () => {
         Filter shown with
         <input value={newFilter} onChange={handleFilterChange} />
       </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name:
-          <input value={newName} onChange={handleChange} />
-        </div>
-        <div>
-          number:
-          <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Form handleSubmit={handleSubmit} newName={newName} handleChange={handleChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      {newFilter.trim() === ""
-        ? persons.map((person) => (
-            <p key={person.name}>
-              {person.name} {person.number}
-            </p>
-          ))
-        : persons.filter((person) =>
-            person.name
-              .toLowerCase()
-              .includes(newFilter.toLowerCase())
-              )
-              .map((person) => (
-                <p key={person.name}>
-                  {person.name} {person.number}
-                </p>
-              ))
-          }
+      <Filter persons={persons} newFilter={newFilter} />
     </div>
   )
 }
